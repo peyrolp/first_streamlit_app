@@ -23,6 +23,6 @@ streamlit.dataframe(my_fruit_list)
 
 
 #recette de base pour les clients
-streamlit.multiselect("Pick some fruits:",list(my_fruit_list.index),['Banana','Honeydew','Kiwi'])
+streamlit.multiselect("Pick some fruits:",list(my_fruit_list.index),['Banana','Honeydew','Kiwifruit'])
 
 
