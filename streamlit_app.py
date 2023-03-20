@@ -29,11 +29,16 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 #afficher le tableau des fruits selectionnes
 streamlit.dataframe(fruits_to_show)
 
+
+
+# 20/03/2023
 # nouvelle section avec fruityvice
 streamlit.header("Fruityvice Fruit Advice!")
+fruit_choice = streamlit.text_input('Tu veux des infos sur quel fruit?','Kiwi')
+streamlit.write('Le user a choisi',fruit_choice)
 
 import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 
 
 
@@ -41,3 +46,4 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # ca affiche un tableau
 streamlit.dataframe(fruityvice_normalized)
+
