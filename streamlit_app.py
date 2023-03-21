@@ -35,19 +35,24 @@ streamlit.dataframe(fruits_to_show)
 
 
 # 20/03/2023
+# 21/03/2023
 # nouvelle section avec fruityvice
 streamlit.header("Fruityvice Fruit Advice!")
-fruit_choice = streamlit.text_input('Tu veux des infos sur quel fruit?','Kiwi')
-streamlit.write('Le user a choisi',fruit_choice)
+try:
+  fruit_choice = streamlit.text_input('Tu veux des infos sur quel fruit?')
+  if not fruit_choice:
+    streamlit.error("Please choisis un fruit pour avoir des infos")
+  else:
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    streamlit.dataframe(fruityvice_normalized)
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
-
-
-
+except URLError as e:
+  streamlit.error()
+  
 # dessous, ca normalise le texte qui est dans la reponse fruityvice
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # ca affiche un tableau
-streamlit.dataframe(fruityvice_normalized)
+
 
 ################################################
 streamlit.stop()
